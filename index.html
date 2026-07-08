@@ -460,9 +460,9 @@ const TRAININGS = [
         sections: [
           {
             heading: "What is a bulk upload and why do we do it?",
-            body: "When a new Trust goes live with DrDoctor, they need their patient and appointment data loaded into the platform before switching on their live integration feed. The tool that does this is called the Patient Data Bulk Uploader (PDBU).",
+            body: "When a new Trust goes live with DrDoctor, they need their patient and appointment data loaded into the platform before switching on their live integration feed.\n\nThere are three types of data that can be bulk uploaded:\n\nBULLETS:Demographics — patient records, loaded via the Patient Data Bulk Uploader (PDBU)|Appointments — appointment records, also loaded via PDBU|Clinics — clinic configuration data, loaded via Mirth (not PDBU)\n\nClinics are often uploaded first, before demographics and appointments, so Tx can preconfigure clinic settings ahead of go-live.",
             highlight:
-              "A bulk upload loads large volumes of patient and appointment data in one go using the PDBU.",
+              "Three upload types: demographics and appointments via PDBU, clinics via Mirth. Clinics first — so Tx can preconfigure before go-live.",
           },
           {
             heading: "What Happens to the Data Step by Step?",
@@ -489,9 +489,14 @@ const TRAININGS = [
           },
           {
             heading: "What Does the Appointment Data Need to Include?",
-            body: "FIELDS:Patient MRN|Must match a patient already in the demographics extract|Clinic code|Required — the row will error if this is missing|Appointment type|New, Follow Up, or Pre-Assessment",
+            body: "FIELDS:Patient MRN|Must match a patient already in the demographics extract|Appointment datetime|Date and time of the appointment — required|Clinic code|Required — the row will error if this is missing|Appointment type|New, Follow Up, or Pre-Assessment",
             highlight:
-              "Clinic code is the most common cause of appointment row errors — always check it is present.",
+              "Clinic code and appointment datetime are the most common causes of appointment row errors — always check both are present.",
+          },
+          {
+            heading: "Clinic Upload",
+            body: "Clinic data is uploaded via Mirth, not the PDBU. This is a separate process with its own requirements.\n\nThe most common issue with clinic uploads is the ampersand character (&). Mirth uses & as a field separator in HL7 messages, so any & in clinic data must be escaped as \\T\\ before upload.\n\nBULLETS:& in clinic names or descriptions must be replaced with \\T\\|This is a data preparation step the Trust is responsible for|If escaping is missed and causes errors, it is not DrDoctor's responsibility to fix — the Trust must correct and reissue the file",
+            highlight: "& must be escaped as \\T\\ in clinic data. If the Trust sends it incorrectly, they must reissue — this is not DrDoctor's fix to make.",
           },
           {
             heading: "Status Flags",
@@ -518,9 +523,9 @@ const TRAININGS = [
           },
           {
             heading: "Other Things to Check",
-            body: "BULLETS:The CSV must be in UTF-8 encoding — always tell Trusts this upfront|The staging area must always be cleared after a completed upload|The process is currently run by the integrations engineering team",
+            body: "BULLETS:The CSV must be in UTF-8 encoding — always tell Trusts this upfront|The staging area must always be cleared after a completed upload|The process is currently run by the integrations engineering team|Pre-upload data quality checks are the Trust's responsibility — DrDoctor is not responsible for fixing data issues in the extract|If errors are found after upload due to data quality, the Trust must correct and reissue the file — not DrDoctor",
             highlight:
-              "Always tell the Trust to export their CSV in UTF-8 encoding before sending.",
+              "Pre-upload checks are the Trust's responsibility. If the data is wrong, the Trust reissues — DrDoctor does not fix it.",
           },
         ],
       },
