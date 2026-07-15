@@ -908,6 +908,37 @@ const SCOPING_SYSTEMS = [
     ],
   },
   {
+    id: "meditech",
+    label: "Meditech Expanse",
+    color: "#ea580c",
+    cards: [
+      {
+        level: "critical",
+        text: "No DrDoctor adapter exists yet for Meditech Expanse.",
+        detail:
+          "Unlike Cerner, Epic, or System-C, there is no pre-built adapter. Integration work will require a bespoke build — factor this into scoping and timelines.",
+      },
+      {
+        level: "watchout",
+        text: "Mapping is never 100% — it depends on how customised the Trust's Expanse instance is.",
+        detail:
+          "Every Meditech Expanse deployment can be configured differently. Do not assume a standard mapping will work across sites.",
+      },
+      {
+        level: "watchout",
+        text: "Clinic structure must be granular enough, or DrDoctor limitations apply.",
+        detail:
+          "If the Trust's clinic structure is too broad or poorly defined, DrDoctor cannot reliably map data. Raise this during scoping.",
+      },
+      {
+        level: "watchout",
+        text: "No mixed clinics — appointment type and consultation medium are built into the clinic itself.",
+        detail:
+          "All appointments in a Meditech Expanse clinic are the same kind (e.g. a F2F New clinic contains only F2F New appointments). There is no mixing of types within a single clinic.",
+      },
+    ],
+  },
+  {
     id: "general",
     label: "General",
     color: "#4b5563",
